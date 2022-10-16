@@ -1,4 +1,6 @@
-﻿import math
+﻿from itertools import combinations
+
+import math
 
 def rotate(target_point: tuple, origin_point: tuple, rad: float=math.pi/2) -> tuple:
     """
@@ -33,6 +35,16 @@ for i in range(s):
     point_list.append(tuple(map(int, input().split())))
 check_set = set(point_list)
 
+point_list.sort()
+max_length_pow = 0
+
+for p1, p2 in combinations(point_list, 2):
+    x1, y1 = p1
+    x2, y2 = p2
+    if (x2 + y2 - y1, y2 + x1 - x2) in check_set and (x1 + y2 - y1, y1 + x1 - x2) in check_set:
+        max_length_pow = max(max_length_pow, (x1-x2)**2+(y1-y2)**2)
+print(max_length_pow)
+"""
 max_length_pow = 0
 for i in range(len(point_list)):
     for j in range(i+1, len(point_list)):
@@ -62,3 +74,4 @@ for i in range(len(point_list)):
         if rotate(start_point, end_point, rad) == point_list[i]:
             max_length_pow = length_pow
 print(max_length_pow)
+"""
