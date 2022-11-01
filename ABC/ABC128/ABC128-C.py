@@ -35,3 +35,8 @@ print(len(temp))
     temp = [switch_pattern_bit_list[i] for i in range(len(switch_pattern_bit_list))
             if format(switch_pattern_bit_list[i] & mask, "0%sb" % N).count("1") % 2 == p_list[light_num]]
 """
+
+
+
+
+
