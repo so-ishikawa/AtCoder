@@ -1,3 +1,5 @@
+from itertools import combinations
+
 N, M = map(int, input().split())
 xy_list = []
 for i in range(M):
@@ -7,25 +9,22 @@ for i in range(M):
 # N is person num
 # M is relationship num
 
-each_person_relationship_list = {}
-for n in range(1, N+1):
-    temp = []
-    for _n in range(1, N+1):
-        if n == _n:
-            continue
-        if {n, _n} in xy_list:
-            temp.append(_n)
-    each_person_relationship_list[n] = temp
+all_combinations = []
+for all_person_num in range(N, 2-1, -1):
+    temp = list(combinations(list(range(1, N+1)), all_person_num))
+    all_combinations += temp
 
-max_group_num = 0
-for n in range(1, N+1):
-    temp = each_person_relationship_list[n]
-    if temp == []:
-        continue
-    base_set = set(each_person_relationship_list[temp[0]])
-    for i in temp:
-        base_set = base_set & set(each_person_relationship_list[i])
-    print(n, base_set)
-    # if max_group_num < len(base_set) + 1:
-    #     max_group_num = len(base_set) + 1
-    #print(max_group_num)
+flag = False
+for target_combination in all_combinations:
+    pair_tuple_list = list(combinations(target_combination, 2))
+    pair_set_list = [set(x) for x in pair_tuple_list]
+    for pair_num in range(len(pair_set_list)):
+        if pair_set_list[pair_num] not in xy_list:
+            break
+        if pair_num == len(pair_set_list)-1:
+            flag = True
+    if flag:
+        print(len(target_combination))
+        break
+if not flag:
+    print(1)
