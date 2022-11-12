@@ -90,6 +90,16 @@ def toggle_nth_bit_rr(num: int, n: int, m: int):
 def is_flag_on(num: int, n: int):
     return True if num & 2 ** n else False
 
+# 左からN桁目が1ならTrue 0ならFalse
+# 一番左が0桁目　次が1桁目
+def is_flag_on_r(num: int, n:int):
+    digit = math.ceil(math.log2(num))
+    return is_flag_on(num, digit - n - 1)
+
+# 全M桁の左からN桁目が1ならTrue 0ならFalse
+def is_flag_on_rr(num: int, n: int, m: int):
+    return is_flag_on(num, m - n - 1)
+
 
 # 1. a_listの情報を縦の並びに持ち変える
 a_list_v = [""] * C
@@ -102,4 +112,4 @@ for index in range(C):
 # 00000000 から 11111111 でそれぞれの軸のon/offを管理
 # for R_state in range(0, int("1"*R)+1):
 
-# print(is_flag_on(100,3))
+print(bin(100), is_flag_on_rr(100,3,8))
