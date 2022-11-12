@@ -1,28 +1,28 @@
 N, M = map(int, input().split())
 A_list = list(map(int, input().split()))
 
-min_value = 9999999999
+dic = {}
+for i in A_list:
+    if i not in dic:
+        dic[i] = 1
+    else:
+        dic[i] += 1
 
-def f(i, temp):
-    global min_value
-
-    if i not in temp and (i+1)%M not in temp:
-        if min_value > sum(temp):
-            min_value = sum(temp)
-    print(min_value)
-    if i in temp:
-        temp2 = temp
-        temp2.remove(i)
-        f(i, temp2)
-
-    if (i+1)%M in temp:
-        temp3 = temp
-        temp3.remove((i+1)%M)
-        f((i+1)%M, temp3)
+min_value = 99999999999
 
 for i in A_list:
     temp = A_list
-    temp.remove(i)
-    f(i, temp)
+    num = i
+
+    _dic = dic.copy()
+    _dic.pop(num)
+    while (num+1)%M in _dic:
+        _dic.pop((num+1)%M)
+        num = (num+1)%M
+    result = 0
+    for key, value in _dic.items():
+        result += key*value
+    if result < min_value:
+        min_value = result
 
 print(min_value)
