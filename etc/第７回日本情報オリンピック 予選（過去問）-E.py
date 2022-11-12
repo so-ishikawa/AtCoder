@@ -2,6 +2,13 @@
 
 """
 方針
+
+#流れ
+1. a_listの情報を縦の並びに持ち変える
+2. 横軸のR本を回転させる or notで 全列挙する
+3. 2.の際　縦軸毎の評価を行い　合計値を出す
+4. 3.最大値が答えとなる
+
 bit演算にて高速かつシンプルに実装する
 
 010100111
@@ -20,16 +27,31 @@ R個のどの横軸を動かす or 動かさないを全てのパターン考え
 01の文字列をbit列として解釈
 int("0110", 2)
 
+3の評価について
+0010100
+ではRが7　で表が2 裏が5だが　これは裏返すことを考えて5と評価する
+1111001
+ではRが7　で表が5　裏が2で　裏返さないとして5と評価する
 
+0 裏返して 7
+1 裏返して 6
+2 裏返して 5
+3 裏返して 4
+4 そのまま 4
+5 そのまま 5
+6 そのまま 6
+7 そのまま 7
+
+value if value > R//2 else R - value で評価
 
 """
-"""
+# """
 R, C = map(int, input().split())
 a_list = []
 for i in range(R):
     temp = list(map(int, input().split()))
     a_list.append(temp)
-"""
+# """
 
 # 非常に高速な1の数え上げbit演算
 # https://yottagin.com/?p=2808
@@ -42,18 +64,42 @@ def count_ones_by_shift_2(num):
     return num
 
 
-# 特定の右からN桁目を反転させる
+# 右からN桁目を反転させる
+# 一番右が0桁目 次が1桁目...
 # https://yottagin.com/?p=5261
 def toggle_nth_bit(num: int, n: int):
     return num ^ (1 << n)
 
-# 特定の左からN桁目を反転させる
+
+# 左からN桁目を反転させる
+# 一番左が0桁目 次が1桁目
 def toggle_nth_bit_r(num: int, n: int):
     digit = math.ceil(math.log2(num))
-    return num ^ (1 << (digit - 1 - n))
+    if digit - n - 1 <= 0:
+        return 0
+    return num ^ (1 << (digit - n - 1))
 
 
-print(23, bin(23), bin(toggle_nth_bit_r(23,1)))
+# 全M桁の左からN桁目を反転させる
+def toggle_nth_bit_rr(num: int, n: int, m: int):
+    return(toggle_nth_bit(num, m - n - 1))
 
-# 以下でも1,0の組み合わせは全列挙できるが 普通にbitで0,1,2...でのほうが早い
-#  a =list(itertools.product([0,1], repeat=4))
+
+# 右からN桁目が1ならTrue 0ならFalse
+# 一番右が0桁目 次が1桁目
+def is_flag_on(num: int, n: int):
+    return True if num & 2 ** n else False
+
+
+# 1. a_listの情報を縦の並びに持ち変える
+a_list_v = [""] * C
+for index in range(C):
+   for i in a_list:
+       a_list_v[index] = a_list_v[index] + str(i[index])
+
+# 2. 横軸のR本を回転させる or notで 全列挙する
+# 横軸一番上が0 一番したがR-1
+# 00000000 から 11111111 でそれぞれの軸のon/offを管理
+# for R_state in range(0, int("1"*R)+1):
+
+# print(is_flag_on(100,3))
