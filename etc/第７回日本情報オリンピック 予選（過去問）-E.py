@@ -107,9 +107,27 @@ for index in range(C):
    for i in a_list:
        a_list_v[index] = a_list_v[index] + str(i[index])
 
+a_list_v = [int(x) for x in a_list_v]
+
 # 2. 横軸のR本を回転させる or notで 全列挙する
 # 横軸一番上が0 一番したがR-1
 # 00000000 から 11111111 でそれぞれの軸のon/offを管理
-# for R_state in range(0, int("1"*R)+1):
 
-print(bin(100), is_flag_on_rr(100,3,8))
+max_value = 0
+
+for R_state in range(0, int("1"*R, 2)+1):
+    temp = a_list_v
+
+    for digit in range(R):
+        if is_flag_on_rr(R_state, digit, R):
+           temp = [toggle_nth_bit_rr(x, digit, R) for x in temp]
+    result = [count_ones_by_shift_2(x) for x in temp]
+
+    print("R:",R_state, "a:",a_list_v, "t:",temp, "r:",result)
+    for i in range(len(result)):
+        result[i] = result[i] if result[i] > R//2 else R - result[i]
+    if max_value < sum(result):
+        max_value = sum(result)
+
+print(max_value)
+# print(bin(10), [count_ones_by_shift_2(x) for x in [10]])
