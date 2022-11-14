@@ -117,17 +117,15 @@ max_value = 0
 
 for R_state in range(0, int("1"*R, 2)+1):
     temp = a_list_v
-
+    """
     for digit in range(R):
         if is_flag_on_rr(R_state, digit, R):
            temp = [toggle_nth_bit_rr(x, digit, R) for x in temp]
+    """
+    temp = [x^R_state for x in temp]
     result = [count_ones_by_shift_2(x) for x in temp]
-
-    for i in range(len(result)):
-        result[i] = result[i] if result[i] > R//2 else R - result[i]
+    result = [x if x > R//2 else R - x for x in result]
     if max_value < sum(result):
         max_value = sum(result)
 
 print(max_value)
-# print(bin(10), [count_ones_by_shift_2(x) for x in [10]])
-# int(format(3,'b'))
