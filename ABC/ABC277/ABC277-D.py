@@ -1,30 +1,30 @@
 ﻿"""
 # 方針
-残りの数の最小値 ←→　選んだ数の最大値で考える
+A_listの最大値 < M　が重要
+A_listの最大値 +1 == Mのケースを考慮する必要がある
 """
 
 N, M = map(int, input().split())
 A_list = list(map(int, input().split()))
 
-sum_value = sum(A_list)
+A_list.sort()
 
-dic = {}
+temp = []
+previous_value = -1
+
 for i in A_list:
-    if i in dic:
-        dic[i] += 1
+    if temp == []:
+        temp.append([i])
     else:
-        dic[i] = 1
+        if previous_value + 1 == i or previous_value == i:
+            temp[len(temp)-1].append(i)
+        else:
+            temp.append([i])
+    previous_value = i
 
-max_value = 0
+temp_sum = [sum(x) for x in temp]
 
-for i in A_list:
-    num = i
-    temp_value = i*dic[i]
-    while (num+1)%M in dic:
-        num = (num+1)%M
-        temp_value = temp_value + (num*dic[num])
-
-    max_value = max(temp_value, max_value)
-
-print(sum_value - max_value)
+if A_list[len(A_list)-1] + 1 == M and A_list[0] == 0 and len(temp_sum) != 1:
+    temp_sum[len(temp_sum)-1] += temp_sum[0]
+print(sum(A_list) - max(temp_sum))
 
