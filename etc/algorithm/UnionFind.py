@@ -1,6 +1,9 @@
 ﻿# from collections import defaultdict
 # from typing import List
 
+import sys
+sys.setrecursionlimit(10**7)
+
 
 class UnionFind:
 
@@ -31,9 +34,18 @@ class UnionFind:
         """
         lhsを含むグループとrhsを含むグループを統合する
         """
+        # lhs_root = self._root(lhs)
+        # rhs_root = self._root(rhs)
+        if self.issame(lhs, rhs):
+            return False
         self.parent[rhs] = lhs
 
-
+num = 3810
+uf = UnionFind(num)
+for i in range(num-1):
+    uf.unite(i, i+1)
+print(uf.issame(num-2, num-1))
+"""
 a = 1 #index 0
 b = 2 #index 1
 c = 3 #index 2
@@ -46,3 +58,4 @@ print(uf.issame(1,2))
 uf.unite(1,2)
 print(uf.issame(1,2))
 print(uf.issame(0,2))
+"""
