@@ -20,7 +20,9 @@ class UnionFind:
         """
         if self.parent[x] == -1:
             return(x)
-        return self._root(self.parent[x])
+        # 経路圧縮
+        self.parent[x] = self._root(self.parent[x])
+        return self.parent[x]
 
 
     def issame(self, lhs, rhs):
@@ -44,7 +46,13 @@ class UnionFind:
         #     return False
         self.parent[rhs] = lhs
 
-
+# 親子関係を図示しちゃんと効率的な改善が行われているか確認してから進んだ方が良さそう
+"""
+A
+ -B -C
+    -D
+ -E
+"""
 
 a = 1 #index 0
 b = 2 #index 1
