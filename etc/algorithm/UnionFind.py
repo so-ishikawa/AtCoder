@@ -66,4 +66,5 @@ print(uf.issame(1,2))
 uf.unite(1,2)
 print(uf.issame(1,2))
 print(uf.issame(0,2))
+2
 
