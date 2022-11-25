@@ -43,7 +43,7 @@ while group_list.count(GROUP_TOP) < K:
             break
         group_list[i] = a_list[min_cost_index] - a_list[i]
 
-
+count = 0
 pre_group_top_hight = a_list[0]
 for i in range(1, N):
     if group_list[i] != GROUP_TOP:
@@ -54,6 +54,10 @@ for i in range(1, N):
         a_list[i] += temp
         total_cost += temp
     pre_group_top_hight = a_list[i]
+
+    count += 1
+    if count+1 >= K:
+        break
 
 print(total_cost)
 
