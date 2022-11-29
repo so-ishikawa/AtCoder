@@ -1,10 +1,4 @@
 # AtCoder
 
 
-*強調*
- 
-_これも強調_
- 
-**もっと強調**
- 
-__同じくもっと強調__
+[hoge](https://github.com/so-ishikawa/AtCoder/blob/main/etc/AIZU/ALDS1_13_A.py)
