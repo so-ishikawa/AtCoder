@@ -85,25 +85,21 @@ for i in koma_list:
     c_list.remove(i[1])
 
 
-for r in r_list:
+for c in list(itertools.permutations(c_list)):
     flag = True
     ban = [True] * 64
 
-    for _c in list(itertools.permutations(c_list)):
-        for c in _c:
-            print(r, c)
-            if not ban[rc_to_one_d(r, c)]:
-                flag = False
-                break
-            marked_ban(ban, r, c)
-        if not flag:
-            break
+    for index in range(len(c)):
+       if not ban[rc_to_one_d(r_list[index], c[index])]:
+           flag = False
+           break
+       marked_ban(ban, r_list[index], c[index])
 
     if not flag:
         continue
 
     for i in koma_list:
-        if not ban[rc_to_one_d(i[0], i[1])]:
+        if not ban[rc_to_one_d(i[0],i[1])]:
             flag = False
             break
         marked_ban(ban, i[0], i[1])
@@ -111,5 +107,17 @@ for r in r_list:
     if not flag:
         continue
 
-    print(ban)
-print("!!!")
+    for i in range(len(c)):
+        koma_list.append((r_list[i], c[i]))
+
+    # print(koma_list) # [(2, 2), (5, 3), (0, 6), (1, 0), (3, 7), (4, 5), (6, 1), (7, 4)]
+
+for r in range(8):
+    temp = ""
+    for c in range(8):
+        if (r, c) in koma_list:
+            temp += "Q"
+        else:
+            temp += "."
+    print(temp)
+
