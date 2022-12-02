@@ -71,12 +71,22 @@ koma_list = []
 for i in range(k):
     r, c = map(int, input().split())
     koma_list.append((r, c))
-koma_list.sort()
+# koma_list.sort()
 
-"""
+
+# 再帰版
+# 64bitで表現された 置ける場所を表す整数と 置いた駒の場所を表す整数の二つで
+# 関数を呼び出す
+
+
+
+
+
+
+
 # イテレータを使っての実装
-r は0から forで回して cはiterで生成した順で確認する
-"""
+# r は0から forで回して cはiterで生成した順で確認する
+
 r_list = [x for x in range(8)]
 c_list = [x for x in range(8)]
 
@@ -124,6 +134,4 @@ for r in range(8):
 
 
 
-"""
-再帰版の実装
-"""
+
