@@ -1,6 +1,6 @@
 ﻿import math
 
-# k = int(input())
+k = int(input())
 
 
 def prime_factorization(num):
@@ -26,18 +26,50 @@ def prime_factorization(num):
 
 
 def legendre(n, p):
-    """
-    n! を pで何回割り切れるか
-    """
+
     _p = p
     sum_ = 0
     while True:
-        temp = n / _p
+        temp = n // _p
 
-        if temp < 1:
+        if temp == 0:
             break
         sum_ += temp
         _p = _p * p
     return int(sum_)
 
-print(legendre(30,3))
+"""
+# n! は p で何回割り切れるか（ルジャンドルの定理）
+def legendre(n, p):
+  res = 0
+  p2 = p
+  while True:
+    tmp = n // p2
+    if tmp == 0:
+      break
+    res += tmp
+    p2 *= p
+  return res
+"""
+
+ 
+prime_list = prime_factorization(k)
+max_prime = prime_list[len(prime_list)-1][0]
+# print(max_prime, prime_list)
+
+# 判定問題
+def isok(n, pes):
+  for p, e in pes:
+    if legendre(n, p) < e:
+      return False
+  return True
+
+# 二分探索
+ng, ok = 1, k  # k ≥ 2 なので 1! は k の倍数にならない、また k! は必ず k の倍数
+while abs(ok - ng) > 1:
+  mid = (ok + ng) // 2
+  if isok(mid, prime_list):
+    ok = mid
+  else:
+    ng = mid
+print(ok)
