@@ -11,8 +11,7 @@ for i in range(m):
 
 def binary_search_edit(num, _list):
     """
-    _list内にnumが存在するか否かを解答
-    ある: indexを返す 無い: False
+    前後のindexを返す　
     """
     left = 0
     right = len(_list)-1
@@ -27,6 +26,8 @@ def binary_search_edit(num, _list):
             left = mid + 1
         else:
             right = mid - 1
+    if left == right:
+        return(left, left+1)
     return(left, right)
 
 """
@@ -34,7 +35,20 @@ def binary_search_edit(num, _list):
 S1,S2,S3,S4,S1 で宅配先がどこに入れる事が可能か
 """
 
-print(binary_search_edit(80, [x for x in range(100) if x % 3 == 0]))
+# 最後に本店を付け加える
+n = n + 1
+d_list.insert(0, 0)
+d_list.append(d)
+
+sum_length = 0
+for k in k_list:
+    result = binary_search_edit(k, d_list)
+    if len(result) == 0:
+        continue
+    min_length = min(abs(k - d_list[result[0]]),abs(k - d_list[result[1]]))
+    print(d_list[result[0]], d_list[result[1]])
+    sum_length += min_length
+print(sum_length)
 
 
 
