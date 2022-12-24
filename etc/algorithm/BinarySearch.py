@@ -1,21 +1,30 @@
-def binary_search(num, _list):
-    """
-    _list����num�����݂��邩�ۂ�����
-    ����: index��Ԃ� ����: False
-    """
-    left = 0
-    right = len(_list)-1
+﻿values = [x for x in range(1000) if x % 3 == 0]
+target = 634
 
-    while True:
-        mid = (left + right)//2
-        if _list[mid] == num:
-            return mid
-        if left >= right:
-            break
-        if _list[mid] < num:
-            left = mid + 1
+def is_ok(arg):
+    if values[arg] <= target:
+        return(True)
+    else:
+        return(False)
+
+
+def meguru_bisect(ng, ok):
+    '''
+    初期値のng,okを受け取り,is_okを満たす最小(最大)のokを返す
+    まずis_okを定義すべし
+    ng ok は  とり得る最小の値-1 とり得る最大の値+1
+    最大最小が逆の場合はよしなにひっくり返す
+    '''
+    while (abs(ok - ng) > 1):
+        mid = (ok + ng) // 2
+        if is_ok(mid):
+            ok = mid
         else:
-            right = mid - 1
-    return(False)
+            ng = mid
+    return ok
 
-# print(binary_search(19, [x for x in range(20)]))
+#ng
+ok = -1
+ng = len(values)
+
+print(values[meguru_bisect(ng, ok)])
