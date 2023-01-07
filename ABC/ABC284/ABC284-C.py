@@ -9,25 +9,39 @@ A, B = map(int, input().split())
 l = list(map(int, input().split()))
 """
 
+
+
 N, M = map(int, input().split())
 uv_list = []
+
 for i in range(M):
     u, v = map(int, input().split())
     uv_list.append((u,v))
 
-result_list = [None]
-for i in range(N):
-    result_list.append(i+1)
+connection_list = [[]]*N
+connection_list.insert(0, None)
 
 for i in uv_list:
-    result_list[i[1]] = i[0]
+    connection_list[i[0]].append(i[1])
+    connection_list[i[1]].append(i[0])
 
-for i in range(len(result_list)-1, 0, -1):
-    temp_index = result_list[i]
-    while True:
-        if temp_index == result_list[temp_index]:
-            result_list[i] = temp_index
-            break
-        temp_index = result_list[temp_index]
+flag_list = [-1]*N
+flag_list.insert(0, None)
 
-print(len(set(result_list))-1)
+def X(root_index, target_index):
+    if flag_list[target_index] != -1:
+        return
+    flag_list[target_index] = root_index
+    for i in connection_list[target_index]:
+        X(root_index, i)
+
+# print(connection_list)
+for i in connection_list:
+    if i==None:
+        continue
+    for j in i:
+        X(i, j)
+
+print(flag_list)
+
+# 途中
