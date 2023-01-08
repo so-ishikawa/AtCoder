@@ -17,31 +17,47 @@ uv_list = []
 for i in range(M):
     u, v = map(int, input().split())
     uv_list.append((u,v))
+    uv_list.append((v,u))
 
-connection_list = [[]]*N
-connection_list.insert(0, None)
+vertex_flag_list = [False] * N
+vertex_flag_list.insert(0, None)
 
+vertex_connection_dic = {}
 for i in uv_list:
-    connection_list[i[0]].append(i[1])
-    connection_list[i[1]].append(i[0])
+    if i[0] in vertex_connection_dic:
+        vertex_connection_dic[i[0]].append(i[1])
+    else:
+        vertex_connection_dic[i[0]] = [i[1]]
 
-flag_list = [-1]*N
-flag_list.insert(0, None)
 
-def X(root_index, target_index):
-    if flag_list[target_index] != -1:
+# print(uv_list, vertex_flag_list, vertex_connection_dic)
+counter = 0
+
+def func(index):
+    if vertex_flag_list[index] == True:
         return
-    flag_list[target_index] = root_index
-    for i in connection_list[target_index]:
-        X(root_index, i)
+    else:
+        vertex_flag_list[index] = True
+    if index not in vertex_connection_dic:
+        return
+    for i in vertex_connection_dic[index]:
+        func(i)
 
-# print(connection_list)
-for i in connection_list:
-    if i==None:
+
+for i in range(len(vertex_flag_list)):
+    if vertex_flag_list[i] == None:
         continue
-    for j in i:
-        X(i, j)
+    if vertex_flag_list[i] == True:
+        continue
 
-print(flag_list)
+    counter += 1
+    func(i)
+    """
+    vertex_flag_list[i] = True
+    if i not in vertex_connection_dic:
+        continue
+    for j in vertex_connection_dic[i]:
+        func(j)
+    """
 
-# 途中
+print(counter)
