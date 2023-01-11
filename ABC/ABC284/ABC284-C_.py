@@ -1,4 +1,5 @@
 ﻿# UnionFindで実装
+# WAで通らず UnionFind側にバグがある可能性がある　01/11
 
 import sys
 sys.setrecursionlimit(10**7)
