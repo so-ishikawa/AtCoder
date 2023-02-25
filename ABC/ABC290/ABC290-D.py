@@ -5,38 +5,33 @@ for i in range(T):
     t_list.append(t)
 
 dic = {}
-
 for i in t_list:
     N = i[0]
     D = i[1]
     K = i[2]
 
     if (N, D%N) in dic:
-        print(dic[(N, D%N)][K-1])
+        # print(N,D,K, dic)
+        print(dic[(N, D%N)][K])
         continue
 
-    checked = [False] * N
-    result = []
-    checked[0] = True
-    result.append(0)
+    th_list = [None]
+    # counter = 0
+    registered_list = [False] * N
 
-    last_index = 0
-    temp_counter = 0
+    th_list.append(0)
+    registered_list[0] = True
+    temp_x = 0
 
-    for i in range(N):
-        last_index = (last_index + D) % N
-        if checked[last_index] == False:
-            checked[last_index] = True
-            result.append(last_index)
-            continue
-        while temp_counter < N:
-            last_index += 1
-            last_index = last_index % N
-            if checked[last_index] == False:
-                checked[last_index] = True
-                result.append(last_index)
-                break
-            temp_counter += 1
+    while len(th_list) <= N:
+        # print(len(th_list))
+        temp_x = (temp_x + D) % N
+        while registered_list[temp_x]:
+            temp_x = (temp_x + 1) % N
 
-    dic[(N, D%N)] = result
-    print(dic[(N, D%N)][K-1])
+        registered_list[temp_x] = True
+        th_list.append(temp_x)
+
+
+    dic[(N, D%N)] = th_list
+    print(th_list[K])
