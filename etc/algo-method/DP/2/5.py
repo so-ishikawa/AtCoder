@@ -34,15 +34,12 @@ for i in range(1, N):
         masu[i][j] = masu[i][j-1] + masu[i-1][j]
 
 
-
-
-
-
 # 出力
+"""
 for i in range(N):
     for j in range(N):
         print(masu[i][j], end=" ")
     print("")
 print("--------------")
-
+"""
 print(masu[N-1][N-1])
