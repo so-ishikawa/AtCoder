@@ -17,7 +17,9 @@ for _ in range(Q):
         called_but_did_not_visit_set.discard(i[1])
     else:
         # 3
-        print(min(called_but_did_not_visit_set))
-
+        # print(min(called_but_did_not_visit_set))
+        for i in called_but_did_not_visit_set:
+            print(i)
+            break
 
 
