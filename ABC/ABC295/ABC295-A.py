@@ -1,11 +1,15 @@
-﻿"""
-#str型で受け取るとき
-s = input() 
-#int型で受け取るとき
-s = int(input()) 
+N = int(input())
+w_list = input().split() #list(map(int, input().split()))
 
-A, B = map(int, input().split())
-
-#list型で取得
-l = list(map(int, input().split()))
-"""
+if "and" in w_list:
+    print("Yes")
+elif "not" in w_list:
+    print("Yes")
+elif "that" in w_list:
+    print("Yes")
+elif "the" in w_list:
+    print("Yes")
+elif "you" in w_list:
+    print("Yes")
+else:
+    print("No")

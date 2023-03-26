@@ -1,11 +1,21 @@
-﻿"""
-#str型で受け取るとき
-s = input() 
-#int型で受け取るとき
-s = int(input()) 
+N = int(input())
+a_list = list(map(int, input().split()))
 
-A, B = map(int, input().split())
+pass_flag = False
+counter = 0
 
-#list型で取得
-l = list(map(int, input().split()))
-"""
+a_list.sort()
+for i in range(len(a_list)-1, -1, -1):
+    # print(i)
+    if pass_flag:
+        pass_flag = False
+        continue
+    # print("-----")
+    if i == 0:
+        break
+
+    if a_list[i] == a_list[i-1]:
+        pass_flag = True
+        counter += 1
+        continue
+print(counter)
