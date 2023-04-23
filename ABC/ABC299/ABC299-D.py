@@ -7,30 +7,14 @@ l = list(map(int, input().split()))
 
 
 N = int(input())
-left = 0
-right = N-1
-for i in range(20-1,-1,-1):
-    if right - left == 1:
-        print("!", left)
-    
-    temp = (left + right) // 2 
-    print("?", temp)
-    n = int(input())
-
-    if n == 0:
-        left = temp
-        
+left = 1
+right = N
+while left + 1 < right:
+    mid = (left + right)//2
+    print("?", mid)
+    s = int(input())
+    if s == 0:
+        left = mid
     else:
-        right = temp
-
-    if (i - 1) > (right-left):
-        # 連続質問モード
-        flag_1 = False
-        for j in range(1,i):
-            print("?", left+j)
-            n_ = int(input())
-            if n_ == 1 and flag_1 == False:
-                flag_1 = True
-                continue
-            if n_ == 0 and flag_1 == True:
-                
+        right = mid
+print("!", left)
