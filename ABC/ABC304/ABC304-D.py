@@ -1,6 +1,5 @@
-import copy
+import bisect
 
-# l = list(map(int, input().split()))
 W, H = map(int, input().split())
 N = int(input())
 st_list = []
@@ -12,39 +11,30 @@ A_list = list(map(int, input().split()))
 B = int(input())
 B_list = list(map(int, input().split()))
 
-waku_list = []
-waku_list.append(st_list)
-# print(waku_list)
-# temp = []
-for i in A_list:
-    temp = []
-    for j in waku_list:
-        if len(j) == 0:
-            continue
-        k = [x for x in j if x[0] >= i]
-        temp.append(k)
-        k = [x for x in j if x[0] < i]
-        temp.append(k)
-    waku_list = copy.deepcopy(temp)
 
-for i in B_list:
-    temp = []
-    for j in waku_list:
-        if len(j) == 0:
-            continue
-        k = [x for x in j if x[1] >= i]
-        temp.append(k)
-        k = [x for x in j if x[1] < i]
-        temp.append(k)
-    waku_list = copy.deepcopy(temp)
-# print(waku_list)
-min_value = 9999999999
-max_value = 0
-for i in waku_list:
-    if len(i) > max_value:
-        max_value = len(i)
-    if len(i) < min_value:
-        min_value = len(i)
+A_list.sort()
+B_list.sort()
 
-print(min_value, max_value)
+piece_dict = dict()
 
+result_m = None
+result_M = None
+
+for i in st_list:
+    x = bisect.bisect(A_list, i[0])
+    y = bisect.bisect(B_list, i[1])
+    if (x, y) in piece_dict:
+        piece_dict[(x, y)] = piece_dict[(x, y)] + 1
+        continue
+    piece_dict[(x, y)] = 1
+
+
+
+vals = piece_dict.values()
+result_m = min(vals)
+result_M = max(vals)
+ 
+if (A+1)*(B+1) > len(piece_dict):
+    result_m = 0
+
+print(result_m, result_M)
