@@ -30,3 +30,27 @@ for i in Q_list:
     end_index = bisect.bisect(A_list, input_end_time) - 1
 
     # input_start_timeが寝ている時間か起きている時間かで場合分け
+    sleep_time_at_start = 0
+    next_start_index = 0
+    ## 寝ているケース
+    if A_list[start_index] in start_dic:
+        sleep_time_at_start = A_list[start_index] + start_dic[A_list[start_index]] - input_start_time
+        next_start_index = start_index + 2
+    else:
+        next_start_index = start_index + 1
+
+
+    ## 寝ているケース
+    sleep_time_at_end = 0
+    pre_end_index = 0
+    if A_list[end_index] in start_dic:
+        sleep_time_at_end = input_end_time - A_list[end_index]
+        pre_end_index = end_index
+    else:
+        pre_end_index = end_index - 1
+
+    total = sleep_time_at_start + sleep_time_at_end
+    for i in range(next_start_index, pre_end_index, 2):
+        total = total + start_dic[A_list[i]]
+    print(total)
+    
