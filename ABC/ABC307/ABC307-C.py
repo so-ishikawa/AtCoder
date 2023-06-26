@@ -30,14 +30,16 @@ for h in range(len(A_list)):
             aw_min = w
         if w > aw_max:
             aw_max = w
-temp = ""
+ah = ah_max - ah_min
+aw = aw_max - aw_min
+
+a_list = []
+
 for i in range(ah_min, ah_max+1):
+    temp = []
     for j in range(aw_min, aw_max+1):
-        if A_list[i][j] == "#":
-            temp += "1"
-            continue
-        temp += "0"
-a_temp = temp    
+        temp.append(A_list[i][j])
+    a_list.append(temp)
 
 # B cliping
 bh_min = 999
@@ -56,14 +58,15 @@ for h in range(len(B_list)):
             bw_min = w
         if w > bw_max:
             bw_max = w
-temp = ""
+bh = bh_max - bh_min
+bw = bw_max - bh_min
+
+b_list = []
 for i in range(bh_min, bh_max+1):
+    temp = []
     for j in range(bw_min, bw_max+1):
-        if B_list[i][j] == "#":
-            temp += "1"
-            continue
-        temp += "0"
-b_temp = temp    
+        temp.append(B_list[i][j])
+    b_list.append(temp)
 
 
 # X cliping
@@ -83,12 +86,24 @@ for h in range(len(X_list)):
             xw_min = w
         if w > xw_max:
             xw_max = w
-temp = ""
+xh = xh_max - xh_min
+xw = xw_max - xw_min
+
+x_list = []
+
 for i in range(xh_min, xh_max+1):
+    temp = []
     for j in range(xw_min, xw_max+1):
-        if X_list[i][j] == "#":
-            temp += "1"
-            continue
-        temp += "0"
-x_temp = temp
-print(a_temp, b_temp, x_temp)
+        temp.append(X_list[i][j])
+    x_list.append(temp)
+
+
+
+#-----------------------------------
+
+
+
+
+
+
+                                            
