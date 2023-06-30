@@ -122,32 +122,3 @@ x_list_position = []
 for _xh in range(xh+1):
     for _xw in range(xw+1):
         x_list_position.append((_xh, _xw))
-
-for a_diff in a_list_diff:
-    for b_diff in b_list_diff:
-        for a in a_list_position:
-            for b in b_list_position:
-                error_flag = False
-                for x in x_list_position:
-                    state = x_list[x[0]][x[1]]
-                    a_state = None
-                    b_state = None
-                    if x[0] == a[0] + a_diff[0] and x[1] == a[1] + a_diff[1]:
-                        a_state = a_list[a[0]][a[1]]
-                    if x[0] == b[0] + b_diff[0] and x[1] == b[1] + b_diff[1]:
-                        b_state = b_list[b[0]][b[1]]
-                    if a_state is not None and b_state is not None:
-                        if state != (a_state or b_state):
-                            error_flag = True
-                    elif a_state is not None and b_state is None:
-                        if state != a_state:
-                            error_flag = True
-                    elif a_state is None and b_state is not None:
-                        if state != b_state:
-                            error_flag = True
-                if not error_flag:
-                    print(a_diff, b_diff, a, b)
-                    print("Yes")
-                    exit()
-print("No")
-exit()
