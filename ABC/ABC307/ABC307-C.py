@@ -122,3 +122,38 @@ x_list_position = []
 for _xh in range(xh+1):
     for _xw in range(xw+1):
         x_list_position.append((_xh, _xw))
+
+temp = []
+for _ in range(len(x_list)):
+    temp.append([False]*len(x_list[0]))
+
+for a_diff in a_list_diff:
+    for b_diff in b_list_diff:
+        # init temp
+        for i in range(len(x_list)):
+            for j in range(len(x_list[0])):
+                temp[i][j] = False
+        # end init temp
+        
+        for a in a_list_position:
+            # if len(temp) > a[0]+a_diff[0] and  len(temp[0]) > a[1]+a_diff[1]:
+            # print(a[0]+a_diff[0], a[1]+a_diff[1], A_list[a[0]][a[1]], A_list)
+            temp[a[0]+a_diff[0]][a[1]+a_diff[1]] = True if A_list[a[0]][a[1]] == "#" else False
+        # print(temp)
+            
+        for b in b_list_position:
+            # if len(temp) > b[0]+b_diff[0] and  len(temp[0]) > b[1]+b_diff[1]:
+            temp[b[0]+b_diff[0]][b[1]+b_diff[1]] = True if B_list[b[0]][b[1]] == "#" else False
+        # print(temp)
+        # if a_diff == (2, 0) and b_diff == (0, 2):
+        #     print(x_list, temp, a_list_position, A_list)
+        error_flag = False
+        for i in range(len(x_list)):
+            for j in range(len(x_list[0])):
+                if x_list[i][j] != temp[i][j]:
+                    error_flag = True
+
+        if not error_flag:
+            print("Yes")
+            exit()
+print("No")
