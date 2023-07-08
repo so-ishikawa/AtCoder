@@ -6,15 +6,13 @@ p_list = list(map(int, input().split()))
 p_list.insert(0, "dummy")
 p_list.insert(0, "dummy")
 
-x_list = []
-y_list = []
+
+x_y_list = []
 for i in range(M):
     x, y = map(int, input().split())
-    x_list.append(x)
-    y_list.append(y)
+    x_y_list.append((x, y))
 
-x_list.insert(0, "dummy")
-y_list.insert(0, "dummy")
+x_y_list.sort(key=lambda x: (x[1], x[0]), reverse=True)
 
 child_list = []
 for i in range(N+1):
@@ -34,7 +32,7 @@ already_insure_list.insert(0, "dummy")
 
 
 def f(target, count):
-    if already_insure_list[target] >= count:
+    if already_insure_list[target] > count:
         return
     already_insure_list[target] = count
     
@@ -44,7 +42,7 @@ def f(target, count):
         for i in child_list[target]:
             f(i, count)
 
-for i in range(1, len(x_list)):
-    f(x_list[i], y_list[i])
+for i in range(len(x_y_list)):
+    f(x_y_list[i][0], x_y_list[i][1])
 
 print(insurance_list.count(True))
