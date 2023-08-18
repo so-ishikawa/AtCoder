@@ -17,7 +17,7 @@ for i in range(9+1):
                 temp_max_time = max(temp_max_time, j + temp_dic[i]*10)
                 temp_dic[i] = temp_dic[i] + 1
                 break
-    # print(temp_dic)
+    # print(i, temp_max_time)
     if temp_max_time < min_time:
         min_time = temp_max_time
     # print()
