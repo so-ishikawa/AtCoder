@@ -1,29 +1,28 @@
 import bisect
 N, D, P = map(int, input().split())
+
+# 7 1 6 3 6
 F_list = list(map(int, input().split()))
 
 F_list.sort()
-temp = P / D
-lower_days = bisect.bisect(F_list, temp)
-over_days = len(F_list) - lower_days
-sum_remain_days = sum(F_list[:lower_days])
 
+# ticket price per day
+ticket_price_per_day = P / D
+# ticket_price_per_day = 6
 
-if over_days == 0:
-    print(sum(F_list))
-    exit()
+# how many days over ticket_price
+lower_or_equal_day_num = bisect.bisect(F_list, ticket_price_per_day)
+over_day_num = len(F_list) - lower_or_equal_day_num
 
-if over_days % D == 0:    
-    print(sum_remain_days + (over_days//D)*P)
-    exit()
+# thukaikiru
+tukau_num = over_day_num // D
+tukau_money = tukau_num * P
+thukaikiru = sum(F_list[:len(F_list)-tukau_num*D]) + tukau_money
 
+# amaru
+amaru_num = (over_day_num // D) + 1
+amaru_money = amaru_num * P
+amaru = sum(F_list[:lower_or_equal_day_num]) + amaru_money
 
-# tsukaikiru
-use_days = (over_days // D)*D
-non_use_days = len(F_list) - use_days
-tukaikiru = (sum(F_list[:non_use_days]) + (use_days//D)*P)
-
-#amaru
-amaru = sum_remain_days + ((over_days // D) + 1)*P
-print(min(tukaikiru, amaru))
-# print(tukaikiru, amaru)
+print(min(thukaikiru, amaru))
+# print(thukaikiru, amaru)
