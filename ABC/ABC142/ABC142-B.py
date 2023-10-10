@@ -5,4 +5,4 @@ h_list = list(map(int, input().split()))
 
 h_list.sort()
 
-print(len(h_list) - bisect.bisect_right(h_list, K))
+print(len(h_list) - bisect.bisect_left(h_list, K))
