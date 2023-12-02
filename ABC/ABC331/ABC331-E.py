@@ -7,68 +7,23 @@ for i in range(L):
     c, d = map(int, input().split())
     ng_list.add((c-1,d-1))
 
-# a_list.sort(reverse=True)
-# b_list.sort(reverse=True)
-
 a_list_with_index = []
 for i in range(len(a_list)):
-    a_list_with_index.append((i, a_list[i], "a"))
+    a_list_with_index.append((i, a_list[i]))
 
 b_list_with_index = []
 for i in range(len(b_list)):
-    b_list_with_index.append((i, b_list[i], "b"))
+    b_list_with_index.append((i, b_list[i]))
 
-temp_list = a_list_with_index + b_list_with_index
-temp_list.sort(key=lambda x: x[1], reverse=True)
+a_list_with_index.sort(key=lambda x: x[1], reverse=True)
+b_list_with_index.sort(key=lambda x: x[1], reverse=True)
 
-# a_list_with_index.sort(key=lambda x: x[1], reverse=True)
-# b_list_with_index.sort(key=lambda x: x[1], reverse=True)
-
-a_index = 0
-b_index = 0
-
-for _ in range(len(a_list)*len(b_list)):
-    while temp_list[a_index][2] != "a":
-        a_index += 1
-    while temp_list[b_index][2] != "b":
-        b_index += 1    
-
-    if (temp_list[a_index][0], temp_list[b_index][0]) in ng_list:
-        next_a_index = a_index + 1
-        next_b_index = b_index + 1
-        while temp_list[next_a_index][2] != "a":
-            next_a_index += 1
-        while temp_list[next_b_index][2] != "b":
-            next_b_index += 1
-        if temp_list[a_index][1] + temp_list[next_b_index][1] > temp_list[next_a_index][1] + temp_list[b_index][1]:
-            b_index = next_b_index
+max_value = 0
+for a in a_list_with_index:
+    for b in b_list_with_index:
+        if (a[0], b[0]) in ng_list:
             continue
-        else:
-            a_index = next_a_index
-            continue
+        max_value = max(max_value, a[1]+b[1])
+        break
+print(max_value)
 
-    print(temp_list[a_index][1] + temp_list[b_index][1])
-    exit()
-
-
-
-
-"""
-print(a_list_with_index, b_list_with_index)
-
-a_index = 0
-b_index = 0
-for _ in range(len(a_list)*len(b_list)):
-    # print(a_index, b_index)
-    if (a_list_with_index[a_index][0], b_list_with_index[b_index][0]) in ng_list:
-        if a_list_with_index[a_index][1] + b_list_with_index[b_index+1][1] > a_list_with_index[a_index+1][1] + b_list_with_index[b_index][1]:
-            b_index = b_index + 1
-            continue
-        else:
-            a_index = a_index + 1
-            continue
-    # print(a_list_with_index[a_index], b_list_with_index[b_index])
-    print(a_index, b_index)
-    print(a_list_with_index[a_index][1] + b_list_with_index[b_index][1])
-    exit()
-"""
