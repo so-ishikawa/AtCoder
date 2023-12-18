@@ -1,12 +1,10 @@
 N = int(input())
 
-if N == 2 or N == 3:
+while N % 2 == 0:
+    N = N // 2
+while N % 3 == 0:
+    N = N // 3
+if N == 1:
     print("Yes")
-    exit()
-
-if N % 2 == 0 and N % 3 == 0 and N % 6 == 0:
-    print("Yes")
-    exit()
-
-print("No")
-exit()
+else:
+    print("No")
