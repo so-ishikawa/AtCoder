@@ -1,39 +1,26 @@
-from collections import deque
-"""
-que = deque()
-que.appendleft("1")
-que.appendleft("2")
-que.pop()
-print(que[0])
-"""
-que = deque()
+# from collections import deque
+
+que_list = []#deque([])
 N, Q = map(int, input().split())
+# for i in range(1, N+1):
+#     que_list.insert(0, (i, 0))
 
-for i in range(1, N+1):
-    que.append((i, 0))
+que_list = [(i, 0) for i in range(N, 0, -1)]
 
-
-for i in range(1, Q+1):
-    num, char = map(str, input().split())
+for _ in range(Q):
+    num, op = map(str, input().split())
     if num == "1":
-        x, y = que[0]
-        if char == "R":
-            new_posi = (x+1, y)#(que[0][0]+1, que[0][1])
-            que.appendleft(new_posi)
-            que.pop()
-        elif char == "L":
-            new_posi = (x-1, y)#(que[0][0]-1, que[0][1])
-            que.appendleft(new_posi)
-            que.pop()
-        elif char == "U":
-            new_posi = (x, y+1)#(que[0][0], que[0][1]+1)
-            que.appendleft(new_posi)
-            que.pop()
-        else: #D
-            new_posi = (x, y-1)#(que[0][0], que[0][1]-1)
-            que.appendleft(new_posi)
-            que.pop()
+        # x, y = que_list[-1]
+        if op == "R":
+            que_list.append((que_list[-1][0]+1, que_list[-1][1]))
+        elif op == "L":
+            que_list.append((que_list[-1][0]-1, que_list[-1][1]))
+        elif op == "U":
+            que_list.append((que_list[-1][0], que_list[-1][1]+1))
+        else: # "D"
+            que_list.append((que_list[-1][0], que_list[-1][1]-1))
+        continue            
     else:
-        # "2"case
-        print(que[int(char)-1][0], que[int(char)-1][1])
-        # print(que)
+        # num == "2"
+        op = int(op)
+        print(que_list[-1*op][0], que_list[-1*op][1])
