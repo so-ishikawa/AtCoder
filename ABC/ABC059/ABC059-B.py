@@ -12,3 +12,4 @@ if A < B:
 if A == B:
     print("EQUAL")
     exit()
+
