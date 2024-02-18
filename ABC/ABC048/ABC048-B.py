@@ -1,2 +1,6 @@
-a, b, X = map(int, input().split())
-print(len([x for x in range(a, b+1) if x % X == 0]))
+a, b, x = map(int, input().split())
+
+if a == 0:
+    print((b // x) + 1)
+    exit()
+print(b//x - (a-1)//x)
