@@ -21,5 +21,5 @@ for n in range(N):
 if not masu[N-1][M-1]:
     print(-1)
     exit()
-print(masu)
+# print(masu)
 print(masu[N-1][M-1])
