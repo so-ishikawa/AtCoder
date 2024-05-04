@@ -35,8 +35,6 @@ checked_free_set = set()
 
 def f(h, w, sum_score, checked_forced_set):
     global checked_free_set
-    global forced_set
-    global magnet_set
     if (h, w) in forced_set:
         if (h, w) in checked_forced_set:
             return(sum_score)
@@ -51,13 +49,13 @@ def f(h, w, sum_score, checked_forced_set):
     checked_free_set.add((h, w))
     sum_score += 1
     
-    if h-1 >= 0 and (h-1, w) not in magnet_set:
+    if h-1 >= 0:
         sum_score = f(h-1, w, sum_score, checked_forced_set)
-    if h+1 <= H-1 and (h+1, w) not in magnet_set:
+    if h+1 <= H-1:
         sum_score = f(h+1, w, sum_score, checked_forced_set)
-    if w-1 >= 0 and (h, w-1) not in magnet_set:
+    if w-1 >= 0:
         sum_score = f(h, w-1, sum_score, checked_forced_set)
-    if w+1 <= W-1 and (h, w+1) not in magnet_set:
+    if w+1 <= W-1:
         sum_score = f(h, w+1, sum_score, checked_forced_set)  
     return(sum_score)
 
