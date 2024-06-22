@@ -18,3 +18,7 @@ for i in AC_list:
 print(len(temp))
 temp.sort()
 print(*temp)
+
+def f():
+    aaa
+
