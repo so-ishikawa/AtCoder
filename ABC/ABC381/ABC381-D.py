@@ -3,30 +3,49 @@ A_list = list(map(int, input().split()))
 
 _set = set()
 count = 0
-_max = 0
 
-index = 0 
-while index < len(A_list):
-    if index + 1 >= len(A_list):
-        if count > _max:
-            _max = count
+# even
+even_max = 0
+
+for i in range(0, len(A_list), 2):
+    if i+1 >= len(A_list):
         break
-    if A_list[index] != A_list[index+1]:
-        _set = set()
-        if count > _max:
-            _max = count
+    if A_list[i] != A_list[i+1]:
         count = 0
-        index += 1
+        _set.clear()
         continue
 
-    if A_list[index] in _set:
-        count = max(count-2, 0)
-        _set.discard(A_list[index])
+    if A_list[i] in _set:
+        # count = max(0, count-2)
+        _set.discard(A_list[i])
         continue
 
+    _set.add(A_list[i])
     count += 2
-    if count > _max:
-        _max = count
-    index += 2
+    if even_max < count:
+        even_max = count
 
-print(_max)
+# odd
+_set = set()
+count = 0
+odd_max = 0
+
+for i in range(1, len(A_list), 2):
+    if i+1 >= len(A_list):
+        break
+    if A_list[i] != A_list[i+1]:
+        count = 0
+        _set.clear()
+        continue
+
+    if A_list[i] in _set:
+        # count = max(0, count-2)
+        _set.discard(A_list[i])
+        continue
+
+    _set.add(A_list[i])
+    count += 2
+    if odd_max < count:
+        odd_max = count
+
+print(max(even_max, odd_max))
