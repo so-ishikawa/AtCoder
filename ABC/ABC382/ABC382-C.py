@@ -29,4 +29,3 @@ for b in B_list:
     print(D_list[index][1]+1)
     # index = len(C_list)-index-1
     # print(C_list[index][1])
-
