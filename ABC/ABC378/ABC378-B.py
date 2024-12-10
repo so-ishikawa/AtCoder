@@ -1,3 +1,4 @@
+import math
 N = int(input())
 q_dic = dict()
 
@@ -10,8 +11,9 @@ for _ in range(Q):
     t, d = map(int, input().split())
     q, r = q_dic[t]
 
-    if d == r:
+    if r >= d:
         print(r)
         continue
-    result = (d // q)* q + r
-    print(result)
+
+    x = math.ceil((d - r) / q)
+    print(q*x+r)
