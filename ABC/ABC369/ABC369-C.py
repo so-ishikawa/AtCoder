@@ -1,37 +1,39 @@
 N = int(input())
 A_list = list(map(int, input().split()))
 
-sum_ = 0
-sum_ += len(A_list) #1
-sum_ += (len(A_list)-1)#2
+if N == 1:
+    print(1)
+    exit()
 
-diff_list = []
+if N == 2:
+    print(3)
+    exit()
 
+diff = []
 for i in range(len(A_list)-1):
-    temp = A_list[i+1]-A_list[i]
-    diff_list.append(temp)
+    diff.append(A_list[i+1] - A_list[i])
 
-current_index = 0
-combo = 0
-pre_value = 0
-diff_value = 0
-for i in diff_list:
-    if combo == 0:
-        combo = 1
-        pre_value = i
+temp = []
+pre = diff[0]
+count = 1
+for i in range(1, len(diff)):
+    if diff[i] == pre:
+        count += 1
+        if i == len(diff)-1:
+            temp.append(count)
+            break
         continue
-    if combo == 1:
-        combo = 2
-        diff_value = i - pre_value
-        pre_value = i
-        continue
-    if i - pre_value != diff_value:
-        if combo > 2:
-            sum_ += (combo*(combo-1)//2)
-        pre_value = i
-        combo = 0
-        diff_value = 0
-        continue
-    combo += 1
+    temp.append(count)
+    count = 1
+    pre = diff[i]
+    if i == len(diff)-1:
+        temp.append(count)
+        break
 
-print(sum_)
+result = len(A_list)
+
+for i in temp:
+    result += (((i+1)*i)//2)
+    # print(result)
+
+print(result)
