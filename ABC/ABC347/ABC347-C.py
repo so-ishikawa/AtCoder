@@ -1,14 +1,21 @@
 N, A, B = map(int, input().split())
 D_list = list(map(int, input().split()))
 
-D_list.sort()
+temp = [d % (A+B) for d in D_list]
+temp.sort()
 
-for i in range(len(D_list)):
-    if i == len(D_list)-1:
-        if (D_list[i] - D_list[0]) % (A + B) <= A:
+temp = temp + [d + (A+B) for d in temp]
+# bprint(temp)
+for i in range(len(temp)-1):
+    """
+    if i == len(temp)-1:
+        if abs(temp[i]-temp[0]) >= B:
             print("Yes")
             exit()
-    if not ((D_list[i+1] - D_list[i]) % (A + B) <= A):
         print("No")
         exit()
-        
+    """
+    if temp[i+1] - temp[i] >= B+1:
+        print("Yes")
+        exit()
+print("No")
