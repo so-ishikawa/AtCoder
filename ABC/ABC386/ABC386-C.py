@@ -1,57 +1,24 @@
 K = int(input())
-S = input()
-T = input()
-
+S = list(input())
+T = list(input())
 if S == T:
     print("Yes")
     exit()
 
-if len(S) == len(T):
-    count = 0
-    for i in range(len(S)):
-        if S[i] != T[i]:
-            count+=1
-    if count == 1 or count == 0:
-        print("Yes")
-    else:
-        print("No")
+for _ in range(2):
+    while len(S) and len(T) and S[-1] == T[-1]:
+        S.pop()
+        T.pop()
+    S = S[::-1]
+    T = T[::-1]
+
+if len(S) == len(T) == 1 and S[0] != T[0]:
+    print("Yes")
     exit()
-
-if len(S) > len(T):
-    if len(S) - len(T) != 1:
-        print("No")
-        exit()
-
-    diff = 0
-    for i in range(len(T)):
-        i_ = i + diff
-        if S[i] != T[i_]:
-            if diff == 1:
-                print("No")
-                exit()
-            diff = 1
-        if i == len(S)-1 and diff == 1:
-            print("No")
-            exit()
+if len(S) == 1 and len(T) == 0:
     print("Yes")
-
-        
-
-if len(S) < len(T):
-    if len(T) - len(S) != 1:
-        print("No")
-        exit()
-
-    diff = 0
-    for i in range(len(S)):        
-        i_ = i + diff
-
-        if S[i] != T[i_]:
-            if diff == 1:
-                print("No")
-                exit()
-            if i == len(S)-1:
-                print("No")
-                exit()
-            diff = 1
+    exit()
+if len(S) == 0 and len(T) == 1:
     print("Yes")
+    exit()
+print("No")
