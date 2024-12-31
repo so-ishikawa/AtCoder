@@ -12,22 +12,33 @@ if K % 2 == 0: #even
 even_dict = dict()
 odd_dict = dict()
 
+temp = 0
 for i in range(1, len(A_list), 2):
-    even_dict[i] = abs(A_list[i] - A_list[i+1])
+    temp += (abs(A_list[i] - A_list[i+1]))
+    even_dict[i] = temp
+
 for i in range(0, len(A_list)-1, 2):
     odd_dict[i] = abs(A_list[i] - A_list[i+1])
-# print(even_dict, odd_dict)
+temp = 0
+a = list(odd_dict.keys())
+a.sort(reverse=True)
+for i in a:
+    temp += odd_dict[i]
+    odd_dict[i] = temp
+
 min_value = 999999999999999999999999999
 
 for i in range(0, len(A_list), 2):
-    lhs = [x for x in odd_dict.keys() if i > x]
     temp = 0
-    for j in lhs:
-        temp += odd_dict[j]
-    rhs = [x for x in even_dict.keys() if i < x]
-    # print(i, lhs, rhs)
-    for j in rhs:
-        temp += even_dict[j]
+    b = [x for x in even_dict.keys() if i > x]
+    if len(b) > 0:
+        temp += even_dict[max(b)]
+    # print(i, temp, "?")
+    b = [x for x in odd_dict.keys() if i < x]
+    # print(b, ">>>")
+    if len(b) > 0:
+        temp += odd_dict[min(b)]
+    # print(i, temp, "!")
     if min_value > temp:
         min_value = temp
 print(min_value)
