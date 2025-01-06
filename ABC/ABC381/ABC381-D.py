@@ -1,51 +1,53 @@
 N = int(input())
 A_list = list(map(int, input().split()))
 
-_set = set()
+
+a = "ABCDEFCGHI"
+dict_ = dict()
+list_ = []
 count = 0
+diff = 0
+
+
+for i in a:
+    if i not in dict_:
+        dict_[i] = count
+        count += 1
+        list_.append(i)
+        continue
+    old_key = dict_[i]
+    del list_[:old_key+1]
+    print(dict_, list_)
+    break
+
+
+
+exit()
+
+
+
+check_list = [False]*N
+
+for i in range(len(A_list)-1):
+    if A_list[i] == A_list[i+1]:
+        check_list[i] = True
+
+count = 0
+temp_set = set()
 
 # even
-even_max = 0
-
-for i in range(0, len(A_list), 2):
-    if i+1 >= len(A_list):
-        break
-    if A_list[i] != A_list[i+1]:
+for i in range(0, len(check_list), 2):
+    if not check_list[i]:
         count = 0
-        _set.clear()
+        temp_set.clear()
         continue
 
-    if A_list[i] in _set:
-        # count = max(0, count-2)
-        _set.discard(A_list[i])
-        continue
+    if A_list[i] in temp_set:
+        pass
+        
 
-    _set.add(A_list[i])
-    count += 2
-    if even_max < count:
-        even_max = count
+
 
 # odd
-_set = set()
-count = 0
-odd_max = 0
-
-for i in range(1, len(A_list), 2):
-    if i+1 >= len(A_list):
-        break
-    if A_list[i] != A_list[i+1]:
-        count = 0
-        _set.clear()
-        continue
-
-    if A_list[i] in _set:
-        # count = max(0, count-2)
-        _set.discard(A_list[i])
-        continue
-
-    _set.add(A_list[i])
-    count += 2
-    if odd_max < count:
-        odd_max = count
-
-print(max(even_max, odd_max))
+for i in range(1, len(check_list), 2):
+    pass
