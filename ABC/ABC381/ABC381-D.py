@@ -1,53 +1,56 @@
 N = int(input())
 A_list = list(map(int, input().split()))
 
+flag_list = [False] * len(A_list)
 
-a = "ABCDEFCGHI"
-dict_ = dict()
-list_ = []
-count = 0
-diff = 0
-
-
-for i in a:
-    if i not in dict_:
-        dict_[i] = count
-        count += 1
-        list_.append(i)
-        continue
-    old_key = dict_[i]
-    del list_[:old_key+1]
-    print(dict_, list_)
-    break
-
-
-
-exit()
-
-
-
-check_list = [False]*N
-
-for i in range(len(A_list)-1):
+for i in range(N-1):
     if A_list[i] == A_list[i+1]:
-        check_list[i] = True
-
-count = 0
-temp_set = set()
+        flag_list[i] = True
 
 # even
-for i in range(0, len(check_list), 2):
-    if not check_list[i]:
-        count = 0
-        temp_set.clear()
+check_set = set()
+best_count = 0
+for i in range(0, N-1, 2):
+    if not flag_list[i]:
+        check_set.clear()
         continue
 
-    if A_list[i] in temp_set:
-        pass
-        
+    if A_list[i] not in check_set:
+        check_set.add(A_list[i])
+        if best_count < len(check_set)*2:
+            best_count = len(check_set)*2
+        continue
 
+    # A_list[i] in check_set
+    for j in range(i-len(check_set)*2, i, 2):
+        if A_list[i] in check_set:
+            check_set.remove(A_list[j])
 
+        if A_list[i] not in check_set:
+            check_set.add(A_list[i])
+            break
 
-# odd
-for i in range(1, len(check_list), 2):
-    pass
+#odd
+check_set.clear()
+
+for i in range(1, N-1, 2):
+    if not flag_list[i]:
+        check_set.clear()
+        continue
+
+    if A_list[i] not in check_set:
+        check_set.add(A_list[i])
+        if best_count < len(check_set)*2:
+            best_count = len(check_set)*2
+        continue
+
+    # A_list[i] in check_set
+    for j in range(i-len(check_set)*2, i, 2):
+        if A_list[i] in check_set:
+            check_set.remove(A_list[j])
+
+        if A_list[i] not in check_set:
+            check_set.add(A_list[i])
+            break
+
+print(best_count)
