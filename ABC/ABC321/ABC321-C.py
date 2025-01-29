@@ -1,11 +1,19 @@
+import itertools
+
 K = int(input())
+l = list(range(9, 0-1,-1))
 
-number_list = list(range(10))
+result = []
+for i in range(1, 10+1):
+    temp = []
+    for v in itertools.combinations(l, i):
+        temp.append(v)
+    temp.sort()
+    result += temp
 
-temp_sum = dict()
-for i in range(10):
-    temp_sum[i] = list(range(i+1))
-
-d = 2
-while True:
-    
+# print(result)
+# exit()
+temp = ""
+for i in result[K]:
+    temp += str(i)
+print(int(temp))
