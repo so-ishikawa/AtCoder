@@ -3,26 +3,23 @@ N, D, P = map(int, input().split())
 
 # 7 1 6 3 6
 F_list = list(map(int, input().split()))
-
 F_list.sort()
 
-# ticket price per day
-ticket_price_per_day = P / D
-# ticket_price_per_day = 6
+index = bisect.bisect(F_list, P/D)
+over_num = len(F_list) - index
 
-# how many days over ticket_price
-lower_or_equal_day_num = bisect.bisect(F_list, ticket_price_per_day)
-over_day_num = len(F_list) - lower_or_equal_day_num
+if over_num == 0:
+    print(sum(F_list))
+    exit()
 
-# thukaikiru
-tukau_num = over_day_num // D
-tukau_money = tukau_num * P
-thukaikiru = sum(F_list[:len(F_list)-tukau_num*D]) + tukau_money
+set_num = over_num // D
+temp = 9999999999999999999999999999
+if set_num == 0:
+    temp = sum(F_list)
+else:
+    temp = sum(F_list[:-1*set_num*D]) + set_num*P
+set_num = set_num + 1
+temp2 = sum(F_list[:-1*set_num*D]) + set_num*P
+print(min(temp, temp2))
 
-# amaru
-amaru_num = (over_day_num // D) + 1
-amaru_money = amaru_num * P
-amaru = sum(F_list[:lower_or_equal_day_num]) + amaru_money
 
-print(min(thukaikiru, amaru))
-# print(thukaikiru, amaru)
