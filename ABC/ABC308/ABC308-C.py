@@ -1,15 +1,13 @@
+from decimal import Decimal
+
 N = int(input())
-# A_list = []
-# B_list = []
-result = [0]*N
-
-
+result = []
+X = 10**100
 for i in range(N):
-    a, b = map(int, input().split())
-    ans = a*(10**100000000)/(a + b)
-    result[i] = (ans, i)
-    
+    A, B = map(int, input().split())
+    result.append(((A*X)//(A+B),i+1))
+    # result.append((A/(A+B), i+1))
+
 result.sort(key=lambda x: (-x[0], x[1]))
-
-for i in range(N):
-    print(result[i][1], end=" ")
+for i in result:
+    print(i[1], end=" ")
