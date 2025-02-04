@@ -1,21 +1,19 @@
-﻿"""
-#str型で受け取るとき
-s = input()
-#int型で受け取るとき
-s = int(input())
-
-A, B = map(int, input().split())
-
-l = list(map(int, input().split()))
-"""
+﻿import math
 N = int(input())
 
-temp = [0] * (N + 1)
-temp[2] = 1
-temp[3] = 4
-temp[4] = 8
-for i in range(N + 1):
-    if i <= 4:
-        continue
-    temp[i] = 4 * int(temp[i-2] / 4 + temp[i-1] /4)
-print(temp[N])
+dic = dict()
+
+for i in range(1, N):
+    temp = []
+    for j in range(1,  int(math.sqrt(i))+1):
+        if i % j == 0:
+            temp.append(j)
+            if j != i//j:
+                temp.append(i//j)
+    dic[i] = len(temp)
+
+count = 0
+for i in range(1, N):
+    count += (dic[i] * dic[N-i])
+    
+print(count)
