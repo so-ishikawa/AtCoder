@@ -1,71 +1,70 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8-auto -*-
-from collections import deque
 
 N, W = map(int, input().split())
 
-max_dic = dict()
+block_list = [None]*N
+block_list.insert(0, "dummy")
 
-exist_list = [True]*N
-exist_list.insert(0, "dummy")
+index_to_y_dic = dict()
+
+vanish_time_list = [True]*N
+vanish_time_list.insert(0, "dummy")
+
 
 grid = []
-for _ in range(W):
-    grid.append(deque())
+for i in range(W):
+    grid.append([])
 
-block_list = []
 for i in range(N):
     X, Y = map(int, input().split())
-    X = X-1
-    Y = Y-1
-    block_list.append((i+1, X, Y))
-    if X not in max_dic:
-        max_dic[X] = Y
-    else:
-        if max_dic[X] < Y:
-            max_dic[X] = Y
+    grid[X-1].append((i+1, Y-1)) # index, Y
+    index_to_y_dic[i+1] = Y-1
 
-for k in max_dic.keys():
-    for _ in range(max_dic[k]+1):
-        grid[k].append(None)
-
-for i in block_list:
-    grid[i[1]][i[2]] = i[0]
-
-for t in range(1, 2*(10**5)+1):
-    change = False
-    vanish_flag = True
-    for i in range(W):
-        if len(grid[i]) == 0:
-            vanish_flag = False
-            break
-        if grid[i][0] is None:
-            vanish_flag = False
-            break
-    if vanish_flag:
-        change = True
-        for i in range(W):
-            name = grid[i].popleft()
-            exist_list[name] = t
-    for i in range(W):
-        if len(grid[i]) == 0:
-            continue
-        if grid[i][0] is None:
-            change = True
-            grid[i].popleft()
-
-    if not change:
-        break
-
-# print(exist_list)
 Q = int(input())
+    
+TA_list = []
 for i in range(Q):
     T, A = map(int, input().split())
-    if exist_list[A] is True:
-        print("Yes")#, T, A, exist_list[A])
+    TA_list.append((T, A-1))
+
+size_min = 999999999999999
+for i in range(W):
+    grid[i].sort(key=lambda x: x[1])
+    size_min = min(size_min, len(grid[i]))
+
+vanish_group = []
+exist_set = set()
+
+for i in range(size_min):
+    vanish_group.append(set())
+
+for i in range(W):
+    for j in range(len(grid[i])):
+        if j >= size_min:
+            exist_set.add(grid[i][j][0])
+            continue
+        vanish_group[j].add(grid[i][j][0])#indexのみ
+
+for i in range(len(vanish_group)):
+    max_value = 0
+    for j in vanish_group[i]:
+        max_value = max(max_value, index_to_y_dic[j])
+    for j in vanish_group[i]:
+        vanish_time_list[j] = max_value + 1
+
+vanish_time_list.pop(0)
+
+# print(vanish_time_list)
+for i in TA_list:
+    t, a = i
+    # a = a-1
+    # print(t, a, vanish_time_list[a])
+    if vanish_time_list[a] is True:
+        print("Yes")
         continue
-    if exist_list[A] > T+0.5:
+    if vanish_time_list[a] > t + 0.5:
         print("Yes")
         continue
     print("No")
-        
+    
