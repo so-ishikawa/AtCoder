@@ -16,7 +16,7 @@ for i in range(N):
 def f(i, j):
     temp = [[i, ""]]
     result = []
-    visited = set()
+    
     for _ in range(N):
         for i_ in temp:
             for j_ in dic[i_[0]]:
