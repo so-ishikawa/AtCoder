@@ -2,17 +2,16 @@ from collections import deque
 
 N = int(input())
 a_list = list(map(int, input().split()))
-a_list.sort()
+check_set = set(a_list)
 
-d = deque(a_list)
+cost = 0
 
-index = 0
-flag = False
 for i in range(1, N):
-    while d[index] < i and index < len(d):
-        index += 1
-    if index >= len(d):
-        flag = True
-    if d[index] == i:
-        
-
+    if i in check_set:
+        cost += 1
+    else:
+        cost += 2
+    if cost > N:
+        print(i-1)
+        exit()
+print(0)
