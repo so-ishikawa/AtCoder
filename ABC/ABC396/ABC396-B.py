@@ -12,3 +12,4 @@ for i in range(Q):
         continue
     #query[0] == 2
     print(d.pop())
+
