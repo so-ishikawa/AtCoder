@@ -15,9 +15,9 @@ if B_plus >= W_plus:
     exit()
 else:
     # len(B_plus) < len(W_plus):
-    sum_value = 0
-    temp = 0
-    for i in range(min(W_plus, N)):
+    temp = sum(B_list[:B_plus]) + sum(W_list[:B_plus])
+    sum_value = temp
+    for i in range(B_plus, min(W_plus, N)):
         temp += (B_list[i]+W_list[i])
         if sum_value < temp:
             sum_value = temp
