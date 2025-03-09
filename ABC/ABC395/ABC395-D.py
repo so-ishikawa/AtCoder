@@ -2,47 +2,38 @@
 # -*- coding: utf-8-auto -*-
 N, Q = map(int, input().split())
 
-hato_to_label_dic = dict()
-label_to_num_dic = dict()
-su_set_list = []
+hato_label = dict()
+
+label_num = dict()
+num_label = dict()
 
 for i in range(1, N+1):
-    hato_to_label_dic[i] = i
-    label_to_num_dic[i] = i
-
-def get_label_from_num(num):
-    keys = [k for k, v in label_to_num_dic.items() if v == num]
-    return(keys[0])
-
-for i in range(N+1):
-    if i == 0:
-        su_set_list.append("dummy")
-        continue
-    su_set_list.append(set({i}))
-
+    hato_label[i] = i
+    label_num[i] = i
+    num_label[i] = i
 
 for _ in range(Q):
     op = list(map(int, input().split()))
     if op[0] == 1:
         a = op[1]
         b = op[2]
-        su_set_list[label_to_num_dic[hato_to_label_dic[a]]].remove(a)
-        new_label = get_label_from_num(b)
-        su_set_list[label_to_num_dic[new_label]].add(a)
-        
+        label = num_label[b]
+        hato_label[a] = label
         continue
-
     if op[0] == 2:
         a = op[1]
         b = op[2]
-        a_label = hato_to_label_dic[a]
-        b_label = hato_to_label_dic[b]
-        a_num = label_to_num_dic[a_label]
-        b_num = label_to_num_dic[b_label]
-        label_to_num_dic[a_label] = b_num
-        label_to_num_dic[b_label] = a_num
-        continue
 
+        label_a = num_label[a]
+        label_b = num_label[b]
+        num_label[a] = label_b
+        num_label[b] = label_a
+
+        label_num[label_a] = b
+        label_num[label_b] = a
+        continue
     # op[0] == 3:
     a = op[1]
-    print(label_to_num_dic[hato_to_label_dic[a]])
+    label = hato_label[a]
+    num = label_num[label]
+    print(num)
