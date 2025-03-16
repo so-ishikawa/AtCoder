@@ -1,36 +1,36 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8-auto -*-
 
-from collections import Counter
-
 N = int(input())
 A_list = list(map(int, input().split()))
+A_sum_set_list = [0]*len(A_list)
+A_flag_list = [True]*(N+1)
 
-check_dic = dict()
+temp_A = 0
 for i in range(len(A_list)):
     a = A_list[i]
-    check_dic.setdefault(a, []).append(i)
+    if A_flag_list[a]:
+        temp_A += 1
+        A_flag_list[a] = False
+    A_sum_set_list[i] = temp_A
+    
+# print(A_sum_set_list)
+B_list = list(reversed(A_list))
+B_sum_set_list = [0]*len(B_list)
+B_flag_list = [True]*(N+1)
 
+temp_B = 0
+for i in range(len(B_list)):
+    a = B_list[i]
+    if B_flag_list[a]:
+        temp_B += 1
+        B_flag_list[a] = False
+    B_sum_set_list[i] = temp_B
+    
+B_sum_set_list.reverse()
 
-anster_list = [0]*N
-
-keys = [k for k, v in check_dic.items() if len(v) >= 2]
-
-for i in keys:
-    temp = check_dic[i]
-    _min = min(temp)
-    _max = max(temp)
-    for j in range(_min, _max):
-        anster_list[j] = anster_list[j] + 1
-
-
-m = (-1, -1)
-for i in range(len(anster_list)):
-    if anster_list[i] > m[1]:
-        m = (i, anster_list[i])
-
-index = m[0]+1
-pre = len(set(A_list[:index]))
-aft = len(set(A_list[index:]))
-
-print(pre+aft)
+max_value = 0
+for i in range(len(A_sum_set_list)-1):
+    temp = A_sum_set_list[i] + B_sum_set_list[i+1]
+    max_value = max(max_value, temp)
+print(max_value)
