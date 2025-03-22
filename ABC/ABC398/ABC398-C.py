@@ -1,13 +1,15 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8-auto -*-
 N = int(input())
-A_list = list(map(int, input().split()))
+A_list = list(map(int,input().split()))
+A_list.insert(0, "dummy")
 
-max_value = 0
-check_list = [False]*(10**9+1)
+dic = dict()
 
-for i in A_list:
-    if check_list[i]:
-        continue
-    max_value = max(max_value, i)
-    check_list[i] = True
+for i in range(1, N+1):
+    dic.setdefault(A_list[i], []).append(i)
+
+_dic = {k: v for k, v in dic.items() if len(v) == 1}
+if len(_dic) == 0:
+    print(-1)
+    exit()
+
+print(_dic[max(_dic)][0])

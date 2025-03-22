@@ -1,6 +1,62 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8-auto -*-
+import collections
+
 A1, A2, A3, A4, A5, A6, A7 = map(int, input().split())
+A_list = [A1,A2,A3,A4,A5,A6,A7]
+
+c = collections.Counter(A_list)
+temp = c.most_common()
+
+if len(temp) == 1:
+    print("No")
+    exit()
+
+if len(temp) == 2:
+    if temp[0][1] == 5 and temp[1][1] == 2:
+        print("Yes")
+        exit()
+    if temp[0][1] == 4 and temp[1][1] == 3:
+        print("Yes")
+        exit()
+    print("No")
+    exit()
+
+if len(temp) == 3:
+    if temp[0][1] == 4 and temp[1][1] == 2:
+        print("Yes")
+        exit()
+    if temp[0][1] == 3 and temp[1][1] == 3:
+        print("Yes")
+        exit()
+    if temp[0][1] == 3 and temp[1][1] == 2:
+        print("Yes")
+        exit()
+    print("No")
+    exit()
+
+if len(temp) == 4:
+    if temp[0][1] == 3 and temp[1][1] == 2:
+        print("Yes")
+        exit()
+    print("No")
+    exit()
+
+print("No")
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
 A_list = [A1,A2,A3,A4,A5,A6,A7]
 A_list.sort()
 
@@ -65,3 +121,4 @@ if len(temp) == 4:
        exit()
 
 print("No")
+"""
