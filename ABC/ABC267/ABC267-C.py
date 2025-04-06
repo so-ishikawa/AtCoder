@@ -8,18 +8,25 @@ A_list.insert(0, "dummy")
 S = 0
 for i in range(1, M+1):
     S += i*A_list[i]
+max_value = S
+
+if N == M:
+    print(max_value)
+    exit()
+
 T = 0
 for i in range(1, M+1):
     T += A_list[i]
-max_value = S
-# print(S, T)
-for i in range(2, N+1):
-    if i-1+M > N:
+S = S - T + M*A_list[M+1]
+# print(S)
+max_value = max(max_value, S)
+
+
+for n in range(3, N+1):
+    if N < n-1+M:
         break
-    # if i > 2:
-    
-    S = S - T + M * A_list[i-1+M]
-    T = T - A_list[i-1] + A_list[i-1+M]
-    # print(S, T)
+    T = T - A_list[n-2] + A_list[n-2+M]
+    S = S -T + M*A_list[n-1+M]
+
     max_value = max(max_value, S)
-print(S)
+print(max_value)
