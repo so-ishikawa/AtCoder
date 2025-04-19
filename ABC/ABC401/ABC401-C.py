@@ -7,11 +7,12 @@ result = [1]*(N+1)
 if N < K:
     print(1)
     exit()
-
+temp = K
 for i in range(K, N+1):
-    temp = 0
-    for j in range(i-K, i):
-        temp += result[j]
-    result[i] = temp
-print(result[N]%(10**9))
+    if i == K:
+        result[i] = K
+        continue
+    temp = temp + result[i-1] - result[i-1-K]
+    result[i] = temp%(10**9)
+print(result[N])
         
