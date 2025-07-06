@@ -27,4 +27,16 @@ for i in range(T):
     if flag:
         print("Yes")
         continue
+
+    A_list.sort()
+    pre = [x for x in A_list if x == A_list[0]]
+    aft = [x for x in A_list if x == A_list[-1]]
+
+    if len(pre) + len(aft) != len(A_list):
+         print("No")
+         continue
+    temp = abs(len(pre) - len(aft))
+    if (temp == 0 or temp == 1) and pre[0] == -1*aft[0]:
+        print("Yes")
+        continue
     print("No")

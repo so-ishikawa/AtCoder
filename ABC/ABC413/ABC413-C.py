@@ -12,46 +12,29 @@ for i in range(Q):
         x = q[2]
         group_1_deque.append((c, x))
         continue
+    # q[0] = 2 
     k = q[1]
     group_2_list.append(k)
 
-
-remain = None
 carry_over = 0
 for _k in group_2_list:
     k = _k
     while True:
-        if remain is not None:
-            c = remain[0]
-            x = remain[1]
-            if c == k:
-                print(c*x)
-                remain = None
-                break
-            if c > k:
-                print(k*x)
-                remain = ((c-k), x)
-                break
-            if c < k:
-                k = k - c
-                remain = None
-                carry_over = c*x
-        
         temp = group_1_deque.popleft()
         c = temp[0]
         x = temp[1]
-        if c == k:
-            print(c*x + carry_over)
+        if k == c:
+            print(c*x+carry_over)
             carry_over = 0
             break
-        if c > k:
-            print(k*x + carry_over)
-            remain = ((c-k),x)
-            carry_over = 0
-            break
-        else:
-            # c < k
+        if k > c:
             k = k - c
-            carry_over += c*x
-            # remain = None
-
+            carry_over = carry_over + c*x
+            continue
+        else:
+            # k < c:
+            print(k*x + carry_over)
+            carry_over = 0
+            group_1_deque.appendleft((c-k, x))
+            break
+            
