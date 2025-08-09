@@ -8,9 +8,10 @@ def has_drug(state, k):
     return (state >> (k-1)) & 1 == 1
 
 
-def f(i, passed, state):
-    if 
+def f(i, passed, S, state):
+    if  
 
+    
 T = int(input())
 for _ in range(T):
     N = int(input())
